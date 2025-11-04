@@ -96,5 +96,8 @@ class AlunoRepositorio
 
 
     //TERMINAR FUNÇÃO PEGAR ALUNO POR CPF
-    public function pegarAlunoPorCpf(string $CPF) {}
+    public function pegarAlunoPorCpf(string $CPF)
+    {
+        return $CPF;
+    }
 }
