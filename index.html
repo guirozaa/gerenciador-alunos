@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./styles/style-login.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login</h2>
+      <form method="post" action="./sgc/auth.php">
+        <div class="form-group">
+          <label for="usuario">Usuário:</label>
+          <input type="text" id="usuario" name="usuario" required />
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha:</label>
+          <input type="password" id="senha" name="senha" required />
+        </div>
+
+        <button type="submit" class="btn-login">Entrar</button>
+      </form>
+
+      <div class="error-message" id="errorMessage">
+        Usuário ou senha incorretos!
+      </div>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const error = urlParams.get("error");
+
+      if (error === "1") {
+        document.getElementById("errorMessage").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
