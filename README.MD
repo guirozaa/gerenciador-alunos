@@ -56,6 +56,7 @@ Como o projeto foi feito em **POO**, foram criadas as seguintes camadas:
 ✅ Criação do banco de dados.  
 ✅ Implementação da estrutura **MVC** (Model–View–Controller) para o módulo **Aluno**.  
 ✅ Sistema funcional e **salvando corretamente os dados no banco**.
+
 ✅**Validar login e sessão** de usuário.
 
 ---
