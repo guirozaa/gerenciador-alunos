@@ -13,7 +13,7 @@ body {
 
 body {
   font-family: "Inter", sans-serif;
-  background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 50%, #d1fae5 10%);
+  background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 30%, #d1fae5 60%);
   position: relative;
 }
 
