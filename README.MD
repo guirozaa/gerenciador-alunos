@@ -56,14 +56,14 @@ Como o projeto foi feito em **POO**, foram criadas as seguintes camadas:
 ✅ Criação do banco de dados.  
 ✅ Implementação da estrutura **MVC** (Model–View–Controller) para o módulo **Aluno**.  
 ✅ Sistema funcional e **salvando corretamente os dados no banco**.
+✅**Validar login e sessão** de usuário.
 
 ---
 
 ## 🚧 O que ainda falta
 
-- [ ] **Validar login e sessão** de usuário.
-- [ ] **Criar página inicial** do sistema.
 - [ ] **Finalizar o `index.php`** para tratar dados e organizar no array corretamente.
+- [ ] Finalizar com a parte de **Listar alunos**.
 
 ---
 

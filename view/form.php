@@ -10,207 +10,246 @@ if (!isset($_SESSION['usuario'])) {
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ficha de Matrícula Escolar</title>
-  <link rel="stylesheet" href="../styles/style-form.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ficha de Matrícula Escolar</title>
+    <link rel="stylesheet" href="../styles/style-primePage.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <h2>Ficha de Matrícula Escolar</h2>
+    <!-- Decoração de fundo -->
+    <div class="bg-decoration bg-decoration-1"></div>
+    <div class="bg-decoration bg-decoration-2"></div>
 
-  <form action="../scripts/index.php" method="POST" enctype="multipart/form-data">
-    <!-- DADOS BÁSICOS -->
-    <fieldset>
-      <legend>Dados do Aluno</legend>
+    <div class="container">
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="logo-section">
+                    <a href="./home-page.php" class="link-back-form">
+                        <button class="link-back btn btn-add">
+                            <span class="btn-text">Voltar</span>
+                        </button>
+                    </a>
+                    <h1>Matrícula Escolar</h1>
+                    <p class="subtitle">Ficha de Inscrição do Aluno</p>
+                </section>
 
-      <label for="ano_letivo">Ano Letivo:</label>
-      <input type="text" name="ano_letivo" required />
+                <form action="../scripts/index.php" method="POST" enctype="multipart/form-data" class="formulario">
+                    <!-- DADOS DO ALUNO -->
+                    <fieldset>
+                        <legend>Dados do Aluno</legend>
 
-      <label for="numero_matricula">Nº de Matrícula:</label>
-      <input type="text" name="numero_matricula" required />
+                        <div class="form-grid">
+                            <label>Ano Letivo:</label>
+                            <input type="text" name="ano_letivo" required>
 
-      <label for="foto_aluno">Foto do Aluno:</label>
-      <input type="file" name="foto_aluno" accept="image/*" />
+                            <label>Nº de Matrícula:</label>
+                            <input type="text" name="numero_matricula" required>
 
-      <label for="nome_completo">Nome Completo:</label>
-      <input type="text" name="nome_completo" required />
+                            <label>Foto do Aluno:</label>
+                            <input type="file" name="foto_aluno" accept="image/*">
 
-      <label for="data_nascimento">Data de Nascimento:</label>
-      <input type="date" name="data_nascimento" required />
+                            <label>Nome Completo:</label>
+                            <input type="text" name="nome_completo" required>
 
-      <label for="idade">Idade:</label>
-      <input type="number" name="idade" required />
+                            <label>Data de Nascimento:</label>
+                            <input type="date" name="data_nascimento" required>
 
-      <label for="sexo">Sexo:</label>
-      <select name="sexo" required>
-        <option value="">Selecione</option>
-        <option value="M">Masculino</option>
-        <option value="F">Feminino</option>
-      </select>
+                            <label>Idade:</label>
+                            <input type="number" name="idade" required>
 
-      <label for="naturalidade">Naturalidade:</label>
-      <input type="text" name="naturalidade" required />
+                            <label>Sexo:</label>
+                            <select name="sexo" required>
+                                <option value="">Selecione</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                            </select>
 
-      <label for="uf_naturalidade">UF:</label>
-      <input type="text" name="uf_naturalidade" maxlength="2" required />
+                            <label>Naturalidade:</label>
+                            <input type="text" name="naturalidade" required>
 
-      <label for="nacionalidade">Nacionalidade:</label>
-      <input type="text" name="nacionalidade" required />
+                            <label>UF:</label>
+                            <input type="text" name="uf_naturalidade" maxlength="2" required>
 
-      <label for="cor_raca">Cor/Raça:</label>
-      <input type="text" name="cor_raca" required />
+                            <label>Nacionalidade:</label>
+                            <input type="text" name="nacionalidade" required>
 
-      <label for="certidao_nascimento">Certidão de Nascimento (opcional):</label>
-      <input type="text" name="certidao_nascimento" />
+                            <label>Cor/Raça:</label>
+                            <input type="text" name="cor_raca" required>
 
-      <label for="cpf">CPF:</label>
-      <input type="text" name="cpf" required />
+                            <label>Certidão de Nascimento:</label>
+                            <input type="text" name="certidao_nascimento">
 
-      <label for="nis">NIS (opcional):</label>
-      <input type="text" name="nis" />
+                            <label>CPF:</label>
+                            <input type="text" name="cpf" required>
 
-      <label for="rg">RG:</label>
-      <input type="text" name="rg" required />
+                            <label>NIS:</label>
+                            <input type="text" name="nis">
 
-      <label for="orgao_emissor">Órgão Emissor:</label>
-      <input type="text" name="orgao_emissor" required />
+                            <label>RG:</label>
+                            <input type="text" name="rg" required>
 
-      <label for="endereco">Endereço:</label>
-      <input type="text" name="endereco" required />
+                            <label>Órgão Emissor:</label>
+                            <input type="text" name="orgao_emissor" required>
 
-      <label for="bairro">Bairro:</label>
-      <input type="text" name="bairro" required />
+                            <label>Endereço:</label>
+                            <input type="text" name="endereco" required>
 
-      <label for="cep">CEP:</label>
-      <input type="text" name="cep" required />
+                            <label>Bairro:</label>
+                            <input type="text" name="bairro" required>
 
-      <label for="municipio">Município:</label>
-      <input type="text" name="municipio" required />
+                            <label>CEP:</label>
+                            <input type="text" name="cep" required>
 
-      <label for="uf_endereco">UF:</label>
-      <input type="text" name="uf_endereco" maxlength="2" required />
+                            <label>Município:</label>
+                            <input type="text" name="municipio" required>
 
-      <label for="telefone">Telefone:</label>
-      <input type="text" name="telefone" required />
+                            <label>UF:</label>
+                            <input type="text" name="uf_endereco" maxlength="2" required>
 
-      <label for="email">E-mail (opcional):</label>
-      <input type="email" name="email" />
-    </fieldset>
+                            <label>Telefone:</label>
+                            <input type="text" name="telefone" required>
 
-    <!-- ESCOLARIDADE -->
-    <fieldset>
-      <legend>Informações Escolares</legend>
+                            <label>E-mail:</label>
+                            <input type="email" name="email">
+                        </div>
+                    </fieldset>
 
-      <label for="serie_ano">Série/Ano:</label>
-      <input type="text" name="serie_ano" required />
+                    <!-- ESCOLARIDADE -->
+                    <fieldset>
+                        <legend>Informações Escolares</legend>
 
-      <label for="turno">Turno:</label>
-      <select name="turno" required>
-        <option value="">Selecione</option>
-        <option value="Matutino">Matutino</option>
-        <option value="Vespertino">Vespertino</option>
-        <option value="Noturno">Noturno</option>
-      </select>
+                        <div class="form-grid">
+                            <label>Série/Ano:</label>
+                            <input type="text" name="serie_ano" required>
 
-      <label for="modalidade">Modalidade:</label>
-      <select name="modalidade" required>
-        <option value="">Selecione</option>
-        <option value="Regular">Regular</option>
-        <option value="EJA">EJA</option>
-        <option value="Educação Especial">Educação Especial</option>
-      </select>
+                            <label>Turno:</label>
+                            <select name="turno" required>
+                                <option value="">Selecione</option>
+                                <option value="Matutino">Matutino</option>
+                                <option value="Vespertino">Vespertino</option>
+                                <option value="Noturno">Noturno</option>
+                            </select>
 
-      <label for="escola_origem">Escola de Origem:</label>
-      <input type="text" name="escola_origem" required />
+                            <label>Modalidade:</label>
+                            <select name="modalidade" required>
+                                <option value="">Selecione</option>
+                                <option value="Regular">Regular</option>
+                                <option value="EJA">EJA</option>
+                                <option value="Educação Especial">Educação Especial</option>
+                            </select>
 
-      <label for="municipio_uf_origem">Município/UF:</label>
-      <input type="text" name="municipio_uf_origem" required />
-    </fieldset>
+                            <label>Escola de Origem:</label>
+                            <input type="text" name="escola_origem" required>
 
-    <!-- RESPONSÁVEL -->
-    <fieldset>
-      <legend>Dados do Responsável</legend>
+                            <label>Município/UF:</label>
+                            <input type="text" name="municipio_uf_origem" required>
+                        </div>
+                    </fieldset>
 
-      <label for="responsavel_nome">Nome Completo:</label>
-      <input type="text" name="responsavel_nome" required />
+                    <!-- RESPONSÁVEL -->
+                    <fieldset>
+                        <legend>Dados do Responsável</legend>
 
-      <label for="responsavel_grau_parentesco">Grau de Parentesco:</label>
-      <input type="text" name="responsavel_grau_parentesco" required />
+                        <div class="form-grid">
+                            <label>Nome Completo:</label>
+                            <input type="text" name="responsavel_nome" required>
 
-      <label for="responsavel_cpf">CPF:</label>
-      <input type="text" name="responsavel_cpf" required />
+                            <label>Grau de Parentesco:</label>
+                            <input type="text" name="responsavel_grau_parentesco" required>
 
-      <label for="responsavel_rg">RG:</label>
-      <input type="text" name="responsavel_rg" required />
+                            <label>CPF:</label>
+                            <input type="text" name="responsavel_cpf" required>
 
-      <label for="responsavel_endereco">Endereço (opcional):</label>
-      <input type="text" name="responsavel_endereco" />
+                            <label>RG:</label>
+                            <input type="text" name="responsavel_rg" required>
 
-      <label for="responsavel_telefone">Telefone:</label>
-      <input type="text" name="responsavel_telefone" required />
+                            <label>Endereço:</label>
+                            <input type="text" name="responsavel_endereco">
 
-      <label for="responsavel_email">E-mail (opcional):</label>
-      <input type="email" name="responsavel_email" />
+                            <label>Telefone:</label>
+                            <input type="text" name="responsavel_telefone" required>
 
-      <label for="responsavel_profissao">Profissão/Ocupação:</label>
-      <input type="text" name="responsavel_profissao" required />
-    </fieldset>
+                            <label>E-mail:</label>
+                            <input type="email" name="responsavel_email">
 
-    <!-- SAÚDE E SITUAÇÃO -->
-    <fieldset>
-      <legend>Situação Familiar e Saúde</legend>
+                            <label>Profissão/Ocupação:</label>
+                            <input type="text" name="responsavel_profissao" required>
+                        </div>
+                    </fieldset>
 
-      <label for="necessidade_especifica">Possui necessidade específica?</label>
-      <input type="text" name="necessidade_especifica" required />
+                    <!-- SAÚDE -->
+                    <fieldset>
+                        <legend>Situação Familiar e Saúde</legend>
 
-      <label for="beneficio_social">Recebe benefício social?</label>
-      <input type="text" name="beneficio_social" required />
+                        <div class="form-grid">
+                            <label>Possui necessidade específica?</label>
+                            <input type="text" name="necessidade_especifica" required>
 
-      <label for="medicacao_continua">Usa medicação contínua?</label>
-      <input type="text" name="medicacao_continua" required />
+                            <label>Recebe benefício social?</label>
+                            <input type="text" name="beneficio_social" required>
 
-      <label for="alergias">Alergias (opcional):</label>
-      <input type="text" name="alergias" />
+                            <label>Usa medicação contínua?</label>
+                            <input type="text" name="medicacao_continua" required>
 
-      <label for="contato_emergencia">Contato de Emergência:</label>
-      <input type="text" name="contato_emergencia" required />
+                            <label>Alergias:</label>
+                            <input type="text" name="alergias">
 
-      <label for="telefone_emergencia">Telefone de Emergência:</label>
-      <input type="text" name="telefone_emergencia" required />
+                            <label>Contato de Emergência:</label>
+                            <input type="text" name="contato_emergencia" required>
 
-      <label for="autorizacao_atividades">Autoriza atividades extraclasse? (Sim/Não):</label>
-      <select name="autorizacao_atividades" required>
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-      </select>
+                            <label>Telefone de Emergência:</label>
+                            <input type="text" name="telefone_emergencia" required>
 
-      <label for="autorizacao_imagem">Autoriza uso de imagem? (Sim/Não):</label>
-      <select name="autorizacao_imagem" required>
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-      </select>
-    </fieldset>
+                            <label>Autoriza atividades extraclasse?</label>
+                            <select name="autorizacao_atividades" required>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
 
-    <!-- MATRÍCULA -->
-    <fieldset>
-      <legend>Dados da Matrícula</legend>
+                            <label>Autoriza uso de imagem?</label>
+                            <select name="autorizacao_imagem" required>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </div>
+                    </fieldset>
 
-      <label for="data_matricula">Data da Matrícula:</label>
-      <input type="date" name="data_matricula" required />
+                    <!-- MATRÍCULA -->
+                    <fieldset>
+                        <legend>Dados da Matrícula</legend>
 
-      <label for="turma">Turma:</label>
-      <input type="text" name="turma" required />
+                        <div class="form-grid">
+                            <label>Data da Matrícula:</label>
+                            <input type="date" name="data_matricula" required>
 
-      <label for="numero_chamada">Nº de Chamada:</label>
-      <input type="number" name="numero_chamada" required />
+                            <label>Turma:</label>
+                            <input type="text" name="turma" required>
 
-      <label for="servidor_responsavel">Servidor Responsável:</label>
-      <input type="text" name="servidor_responsavel" required />
-    </fieldset>
+                            <label>Nº de Chamada:</label>
+                            <input type="number" name="numero_chamada" required>
 
-    <button type="submit">Enviar Matrícula</button>
-  </form>
+                            <label>Servidor Responsável:</label>
+                            <input type="text" name="servidor_responsavel" required>
+                        </div>
+                    </fieldset>
+
+                    <div class="buttons-container">
+                        <button type="submit" class="btn btn-submit btn-add">
+                            <span class="btn-icon">📄</span>
+                            <span class="btn-text">Enviar Matrícula</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Secretaria de Educação | Sistema de Matrículas</p>
+        </footer>
+    </div>
+
 </body>
 
 </html>
