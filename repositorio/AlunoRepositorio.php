@@ -13,30 +13,26 @@ class AlunoRepositorio
     {
         $stmt = $this->conn->prepare("
             INSERT INTO alunos_tb (
-            ano_letivo, numero_matricula, foto_aluno,
             nome_completo, data_nascimento, idade, sexo, naturalidade, uf_naturalidade,
-            nacionalidade, cor_raca, certidao_nascimento, cpf, nis, rg, orgao_emissor,
-            endereco, bairro, cep, municipio, uf_endereco, telefone, email,
-            serie_ano, turno, modalidade, escola_origem, municipio_escola,
+            nacionalidade, cor_raca, cpf, nis, rg, orgao_emissor,
+            endereco, bairro, cep, municipio, uf_endereco, telefone, email, ano_letivo,
+            turno, modalidade, escola_origem, municipio_escola,
             responsavel_nome, responsavel_grau_parentesco, responsavel_cpf, responsavel_rg,
             responsavel_endereco, responsavel_telefone, responsavel_email, responsavel_profissao,
             necessidade_especifica, beneficio_social, medicacao_continua, alergias,
             contato_emergencia, telefone_emergencia, autorizacao_atividades, autorizacao_uso_imagem,
-            data_matricula, turma, numero_chamada, servidor_responsavel,
+            data_matricula, turma, numero_chamada, servidor_responsavel,foto_aluno ,certidao_nascimento,
             carteira_vacinacao, comprovante_residencia, cartao_nis,
             documento_aluno, documento_responsavel, data_registro
         ) VALUES (
             ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-            ?, ?, ?, ?, ?, NOW()
+            ?, ?,?, NOW()
         )
         ");
 
         $stmt->bind_param(
-            "sssssssssssssssssssssssssssssssssssssssssssssssssssss",
-            $aluno->ano_letivo,
-            $aluno->numero_matricula,
-            $aluno->foto_aluno,
+            "sssssssssssssssssssssssssssssssssssssssssssssssssss",
             $aluno->nome_completo,
             $aluno->data_nascimento,
             $aluno->idade,
@@ -45,7 +41,6 @@ class AlunoRepositorio
             $aluno->uf_naturalidade,
             $aluno->nacionalidade,
             $aluno->cor_raca,
-            $aluno->certidao_nascimento,
             $aluno->cpf,
             $aluno->nis,
             $aluno->rg,
@@ -57,7 +52,7 @@ class AlunoRepositorio
             $aluno->uf_endereco,
             $aluno->telefone,
             $aluno->email,
-            $aluno->serie_ano,
+            $aluno->ano_letivo,
             $aluno->turno,
             $aluno->modalidade,
             $aluno->escola_origem,
@@ -82,6 +77,8 @@ class AlunoRepositorio
             $aluno->turma,
             $aluno->numero_chamada,
             $aluno->servidor_responsavel,
+            $aluno->certidao_nascimento,
+            $aluno->foto_aluno,
             $aluno->carteira_vacinacao,
             $aluno->comprovante_residencia,
             $aluno->cartao_nis,
