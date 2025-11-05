@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
-  header("Location: ../index.html");
-  die;
+    header("Location: ../index.html");
+    die;
 }
 ?>
 
@@ -41,15 +41,6 @@ if (!isset($_SESSION['usuario'])) {
                         <legend>Dados do Aluno</legend>
 
                         <div class="form-grid">
-                            <label>Ano Letivo:</label>
-                            <input type="text" name="ano_letivo" required>
-
-                            <label>Nº de Matrícula:</label>
-                            <input type="text" name="numero_matricula" required>
-
-                            <label>Foto do Aluno:</label>
-                            <input type="file" name="foto_aluno" accept="image/*">
-
                             <label>Nome Completo:</label>
                             <input type="text" name="nome_completo" required>
 
@@ -77,9 +68,6 @@ if (!isset($_SESSION['usuario'])) {
 
                             <label>Cor/Raça:</label>
                             <input type="text" name="cor_raca" required>
-
-                            <label>Certidão de Nascimento:</label>
-                            <input type="text" name="certidao_nascimento">
 
                             <label>CPF:</label>
                             <input type="text" name="cpf" required>
@@ -113,6 +101,7 @@ if (!isset($_SESSION['usuario'])) {
 
                             <label>E-mail:</label>
                             <input type="email" name="email">
+
                         </div>
                     </fieldset>
 
@@ -121,8 +110,9 @@ if (!isset($_SESSION['usuario'])) {
                         <legend>Informações Escolares</legend>
 
                         <div class="form-grid">
-                            <label>Série/Ano:</label>
-                            <input type="text" name="serie_ano" required>
+
+                            <label>Ano Letivo:</label>
+                            <input type="text" name="ano_letivo" required>
 
                             <label>Turno:</label>
                             <select name="turno" required>
@@ -143,8 +133,8 @@ if (!isset($_SESSION['usuario'])) {
                             <label>Escola de Origem:</label>
                             <input type="text" name="escola_origem" required>
 
-                            <label>Município/UF:</label>
-                            <input type="text" name="municipio_uf_origem" required>
+                            <label>Município Escola:</label>
+                            <input type="text" name="municipio_escola" required>
                         </div>
                     </fieldset>
 
@@ -204,14 +194,14 @@ if (!isset($_SESSION['usuario'])) {
 
                             <label>Autoriza atividades extraclasse?</label>
                             <select name="autorizacao_atividades" required>
-                                <option value="Sim">Sim</option>
-                                <option value="Não">Não</option>
+                                <option value="S">Sim</option>
+                                <option value="N">Não</option>
                             </select>
 
                             <label>Autoriza uso de imagem?</label>
-                            <select name="autorizacao_imagem" required>
-                                <option value="Sim">Sim</option>
-                                <option value="Não">Não</option>
+                            <select name="autorizacao_uso_imagem" required>
+                                <option value="S">Sim</option>
+                                <option value="N">Não</option>
                             </select>
                         </div>
                     </fieldset>
@@ -232,15 +222,42 @@ if (!isset($_SESSION['usuario'])) {
 
                             <label>Servidor Responsável:</label>
                             <input type="text" name="servidor_responsavel" required>
-                        </div>
-                    </fieldset>
 
-                    <div class="buttons-container">
-                        <button type="submit" class="btn btn-submit btn-add">
-                            <span class="btn-icon">📄</span>
-                            <span class="btn-text">Enviar Matrícula</span>
-                        </button>
-                    </div>
+                        </div>
+
+                        <fieldset>
+                            <legend>Documentos</legend>
+                            <div class="form-grid">
+                                <label>Foto do Aluno:</label>
+                                <input type="file" name="foto_aluno" accept="image/*">
+
+                                <label>Certidão de Nascimento:</label>
+                                <input type="file" name="certidao_nascimento">
+
+                                <label>Carteira Vacinação:</label>
+                                <input type="file" name="carteira_vacinacao" accept="image/*" require>
+
+                                <label>Comprovante Residência:</label>
+                                <input type="file" name="comprovante_residencia" accept="image/*" require>
+
+                                <label>Cartão NIS:</label>
+                                <input type="file" name="cartao_nis" accept="image/*">
+
+                                <label>Documento Aluno:</label>
+                                <input type="file" name="documento_aluno" accept="image/*" require>
+
+                                <label>Documento Responsável:</label>
+                                <input type="file" name="documento_responsavel" accept="image/*" require>
+
+                            </div>
+                        </fieldset>
+
+                        <div class="buttons-container">
+                            <button type="submit" class="btn btn-submit btn-add">
+                                <span class="btn-icon">📄</span>
+                                <span class="btn-text">Cadastrar Aluno</span>
+                            </button>
+                        </div>
                 </form>
             </div>
         </main>
