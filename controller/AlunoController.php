@@ -13,11 +13,11 @@ class AlunoController
         // Adicionar chamado da função procurar por cpf DO REPOSITORIO antes de criar objeto aluno!, caso venha uma resposta, echo 'CPF JA CADASTRADO'
         $aluno = new AlunoModel($dados);
         $criar = $this->repo->createAluno($aluno);
+    }
 
-        if ($criar) {
-            return 'Aluno criado com Sucesso!';
-        } else {
-            return 'Falha ao criar aluno';
-        }
+    public function ListarAlunos()
+    {
+        $listaAluno = $this->repo->listarAlunos();
+        return $listaAluno;
     }
 }

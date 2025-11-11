@@ -51,19 +51,17 @@ Como o projeto foi feito em **POO**, foram criadas as seguintes camadas:
 
 ## 🕒 Histórico de Desenvolvimento
 
-**🗓️ 04/11/2025 — 10h às 12h30**
+\*\*🗓️ 04/11/2025 —
 
 ✅ Criação do banco de dados.  
 ✅ Implementação da estrutura **MVC** (Model–View–Controller) para o módulo **Aluno**.  
 ✅ Sistema funcional e **salvando corretamente os dados no banco**.
-
-✅**Validar login e sessão** de usuário.
+✅ Validar **login e sessão** de usuário.
 
 ---
 
 ## 🚧 O que ainda falta
 
-- [ ] **Finalizar o `index.php`** para tratar dados e organizar no array corretamente.
 - [ ] Finalizar com a parte de **Listar alunos**.
 
 ---

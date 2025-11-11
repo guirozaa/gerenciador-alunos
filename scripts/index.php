@@ -50,10 +50,7 @@ foreach ($arquivos as $chave) {
 }
 
 
-
-
 $dados = [
-    // DADOS DO ALUNO
     'nome_completo' => $_POST['nome_completo'] ?? '',
     'data_nascimento' => $_POST['data_nascimento'] ?? '',
     'idade' => $_POST['idade'] ?? '',
@@ -74,14 +71,14 @@ $dados = [
     'telefone' => $_POST['telefone'] ?? '',
     'email' => $_POST['email'] ?? '',
 
-    // INFORMAÇÕES ESCOLARES
+
     'ano_letivo' => $_POST['ano_letivo'] ?? '',
     'turno' => $_POST['turno'] ?? '',
     'modalidade' => $_POST['modalidade'] ?? '',
     'escola_origem' => $_POST['escola_origem'] ?? '',
     'municipio_escola' => $_POST['municipio_escola'] ?? '',
 
-    // DADOS DO RESPONSÁVEL
+
     'responsavel_nome' => $_POST['responsavel_nome'] ?? '',
     'responsavel_grau_parentesco' => $_POST['responsavel_grau_parentesco'] ?? '',
     'responsavel_cpf' => $_POST['responsavel_cpf'] ?? '',
@@ -91,7 +88,7 @@ $dados = [
     'responsavel_email' => $_POST['responsavel_email'] ?? '',
     'responsavel_profissao' => $_POST['responsavel_profissao'] ?? '',
 
-    // SAÚDE E SITUAÇÃO FAMILIAR
+
     'necessidade_especifica' => $_POST['necessidade_especifica'] ?? '',
     'beneficio_social' => $_POST['beneficio_social'] ?? '',
     'medicacao_continua' => $_POST['medicacao_continua'] ?? '',
@@ -101,13 +98,12 @@ $dados = [
     'autorizacao_atividades' => $_POST['autorizacao_atividades'] ?? '',
     'autorizacao_uso_imagem' => $_POST['autorizacao_uso_imagem'] ?? '',
 
-    // MATRÍCULA
+
     'data_matricula' => $_POST['data_matricula'] ?? '',
     'turma' => $_POST['turma'] ?? '',
     'numero_chamada' => $_POST['numero_chamada'] ?? '',
     'servidor_responsavel' => $_POST['servidor_responsavel'] ?? '',
 
-    // DOCUMENTOS
     'foto_aluno' => $_FILES['foto_aluno']['caminho_final'] ?? null,
     'certidao_nascimento' => $_FILES['certidao_nascimento']['caminho_final'] ?? null,
     'carteira_vacinacao' => $_FILES['carteira_vacinacao']['caminho_final'] ?? null,
