@@ -33,57 +33,57 @@ class AlunoRepositorio
 
         $stmt->bind_param(
             "sssssssssssssssssssssssssssssssssssssssssssssssssss",
-            $aluno->nome_completo,
-            $aluno->data_nascimento,
-            $aluno->idade,
-            $aluno->sexo,
-            $aluno->naturalidade,
-            $aluno->uf_naturalidade,
-            $aluno->nacionalidade,
-            $aluno->cor_raca,
-            $aluno->cpf,
-            $aluno->nis,
-            $aluno->rg,
-            $aluno->orgao_emissor,
-            $aluno->endereco,
-            $aluno->bairro,
-            $aluno->cep,
-            $aluno->municipio,
-            $aluno->uf_endereco,
-            $aluno->telefone,
-            $aluno->email,
-            $aluno->ano_letivo,
-            $aluno->turno,
-            $aluno->modalidade,
-            $aluno->escola_origem,
-            $aluno->municipio_escola,
-            $aluno->responsavel_nome,
-            $aluno->responsavel_grau_parentesco,
-            $aluno->responsavel_cpf,
-            $aluno->responsavel_rg,
-            $aluno->responsavel_endereco,
-            $aluno->responsavel_telefone,
-            $aluno->responsavel_email,
-            $aluno->responsavel_profissao,
-            $aluno->necessidade_especifica,
-            $aluno->beneficio_social,
-            $aluno->medicacao_continua,
-            $aluno->alergias,
-            $aluno->contato_emergencia,
-            $aluno->telefone_emergencia,
-            $aluno->autorizacao_atividades,
-            $aluno->autorizacao_uso_imagem,
-            $aluno->data_matricula,
-            $aluno->turma,
-            $aluno->numero_chamada,
-            $aluno->servidor_responsavel,
-            $aluno->certidao_nascimento,
-            $aluno->foto_aluno,
-            $aluno->carteira_vacinacao,
-            $aluno->comprovante_residencia,
-            $aluno->cartao_nis,
-            $aluno->documento_aluno,
-            $aluno->documento_responsavel
+            $aluno->getNomeCompleto(),
+            $aluno->getDataNascimento(),
+            $aluno->getIdade(),
+            $aluno->getSexo(),
+            $aluno->getNaturalidade(),
+            $aluno->getUfNaturalidade(),
+            $aluno->getNacionalidade(),
+            $aluno->getCorRaca(),
+            $aluno->getCpf(),
+            $aluno->getNis(),
+            $aluno->getRg(),
+            $aluno->getOrgaoEmissor(),
+            $aluno->getEndereco(),
+            $aluno->getBairro(),
+            $aluno->getCep(),
+            $aluno->getMunicipio(),
+            $aluno->getUfEndereco(),
+            $aluno->getTelefone(),
+            $aluno->getEmail(),
+            $aluno->getAnoLetivo(),
+            $aluno->getTurno(),
+            $aluno->getModalidade(),
+            $aluno->getEscolaOrigem(),
+            $aluno->getMunicipioEscola(),
+            $aluno->getResponsavelNome(),
+            $aluno->getResponsavelGrauParentesco(),
+            $aluno->getResponsavelCpf(),
+            $aluno->getResponsavelRg(),
+            $aluno->getResponsavelEndereco(),
+            $aluno->getResponsavelTelefone(),
+            $aluno->getResponsavelEmail(),
+            $aluno->getResponsavelProfissao(),
+            $aluno->getNecessidadeEspecifica(),
+            $aluno->getBeneficioSocial(),
+            $aluno->getMedicacaoContinua(),
+            $aluno->getAlergias(),
+            $aluno->getContatoEmergencia(),
+            $aluno->getTelefoneEmergencia(),
+            $aluno->getAutorizacaoAtividades(),
+            $aluno->getAutorizacaoUsoImagem(),
+            $aluno->getDataMatricula(),
+            $aluno->getTurma(),
+            $aluno->getNumeroChamada(),
+            $aluno->getServidorResponsavel(),
+            $aluno->getCertidaoNascimento(),
+            $aluno->getFotoAluno(),
+            $aluno->getCarteiraVacinacao(),
+            $aluno->getComprovanteResidencia(),
+            $aluno->getCartaoNis(),
+            $aluno->getDocumentoAluno(),
+            $aluno->getDocumentoResponsavel()
         );
 
 
@@ -93,8 +93,34 @@ class AlunoRepositorio
 
 
     //TERMINAR FUNÇÃO PEGAR ALUNO POR CPF
-    public function pegarAlunoPorCpf(string $CPF)
+    public function pegarAlunoPorCpf(string $cpf): ?AlunoModel
     {
-        return $CPF;
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM alunos_tb WHERE cpf = ? ");
+            $stmt->bind_param('s', $cpf);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $aluno = $result->fetch_assoc();
+
+            return $aluno ? new AlunoModel($aluno) : null;
+        } catch (\Throwable $e) {
+            echo "Erro no banco: " . $e;
+            return null;
+        }
+    }
+
+    public function listarAlunos()
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM alunos_tb");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Pega TODAS as linhas como array associativo
+        $alunos = $result->fetch_all(MYSQLI_ASSOC);
+
+        // Transforma cada linha em um objeto AlunoModel
+        return array_map(function ($aluno) {
+            return new AlunoModel($aluno);
+        }, $alunos);
     }
 }

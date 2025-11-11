@@ -23,5 +23,5 @@ if (mysqli_stmt_num_rows($stmt) < 1) {
 };
 
 $_SESSION['usuario'] = $user;
-header("Location: ../view/form.php");
+header("Location: ../view/home-page.php");
 exit;

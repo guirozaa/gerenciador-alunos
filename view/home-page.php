@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../index.html");
+    die;
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -32,14 +39,14 @@
                 <!-- Botões principais -->
                 <div class="buttons-container">
                     <!-- Botão Ver Estudantes -->
-
-                    <button class="btn btn-view">
-                        <div class="btn-icon">
-                            <i class="ph ph-eye"></i>
-                        </div>
-                        <span class="btn-text">Ver Estudantes</span>
-                    </button>
-
+                    <a href="./listar-page.php" class="link-form">
+                        <button class="btn btn-view">
+                            <div class="btn-icon">
+                                <i class="ph ph-eye"></i>
+                            </div>
+                            <span class="btn-text">Ver Estudantes</span>
+                        </button>
+                    </a>
                     <a href="./form.php" class="link-form">
                         <button class="btn btn-add">
                             <div class="btn-icon">
