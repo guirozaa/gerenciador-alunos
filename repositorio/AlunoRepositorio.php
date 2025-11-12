@@ -77,8 +77,8 @@ class AlunoRepositorio
             $aluno->getTurma(),
             $aluno->getNumeroChamada(),
             $aluno->getServidorResponsavel(),
-            $aluno->getCertidaoNascimento(),
             $aluno->getFotoAluno(),
+            $aluno->getCertidaoNascimento(),
             $aluno->getCarteiraVacinacao(),
             $aluno->getComprovanteResidencia(),
             $aluno->getCartaoNis(),
@@ -115,12 +115,25 @@ class AlunoRepositorio
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // Pega TODAS as linhas como array associativo
+
         $alunos = $result->fetch_all(MYSQLI_ASSOC);
 
-        // Transforma cada linha em um objeto AlunoModel
+
         return array_map(function ($aluno) {
             return new AlunoModel($aluno);
         }, $alunos);
+    }
+
+    public function deletarAluno(int $id)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM alunos_tb WHERE id = ? ");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
