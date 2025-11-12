@@ -57,12 +57,14 @@ Como o projeto foi feito em **POO**, foram criadas as seguintes camadas:
 ✅ Implementação da estrutura **MVC** (Model–View–Controller) para o módulo **Aluno**.  
 ✅ Sistema funcional e **salvando corretamente os dados no banco**.
 ✅ Validar **login e sessão** de usuário.
+✅ Parte de **Listar alunos**.
 
 ---
 
 ## 🚧 O que ainda falta
 
-- [ ] Finalizar com a parte de **Listar alunos**.
+- [ ] Delete de estudantes
+- [ ] Edit de estudantes
 
 ---
 
