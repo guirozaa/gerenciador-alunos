@@ -58,13 +58,19 @@ Como o projeto foi feito em **POO**, foram criadas as seguintes camadas:
 ✅ Sistema funcional e **salvando corretamente os dados no banco**.
 ✅ Validar **login e sessão** de usuário.
 ✅ Parte de **Listar alunos**.
+✅ Parte de **Deletar alunos**.
 
 ---
 
 ## 🚧 O que ainda falta
 
-- [ ] Delete de estudantes
+**Mais Importante**
+
 - [ ] Edit de estudantes
+
+**Pequenas Modificações**
+
+- Excluir pasta do anexo específico ao excluir aluno.
 
 ---
 

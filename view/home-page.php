@@ -13,7 +13,6 @@ if (!isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StuManager - Gestão de Estudantes</title>
 
-    <!-- Google Fonts -->
     <link href__="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../styles/style-primePage.css">
@@ -21,24 +20,18 @@ if (!isset($_SESSION['usuario'])) {
 </head>
 
 <body>
-    <!-- Elementos decorativos de fundo -->
     <div class="bg-decoration bg-decoration-1"></div>
     <div class="bg-decoration bg-decoration-2"></div>
 
-    <!-- Container principal -->
     <div class="container">
-        <!-- Conteúdo principal -->
         <main class="main-content">
             <div class="content-wrapper">
-                <!-- Logo e título -->
                 <div class="logo-section">
                     <h1>StuManager</h1>
                     <p class="subtitle">Gestão Inteligente de Estudantes</p>
                 </div>
 
-                <!-- Botões principais -->
                 <div class="buttons-container">
-                    <!-- Botão Ver Estudantes -->
                     <a href="./listar-page.php" class="link-form">
                         <button class="btn btn-view">
                             <div class="btn-icon">
@@ -56,11 +49,8 @@ if (!isset($_SESSION['usuario'])) {
                         </button>
 
                     </a>
-                    <!-- Botão Adicionar Estudante -->
-
                 </div>
 
-                <!-- Features -->
                 <div class="features">
                     <div class="feature-card">
                         <div class="feature-icon">⚡</div>
@@ -80,8 +70,6 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
         </main>
-
-        <!-- Rodapé -->
         <footer>
             <p>© 2025 StuManager - Todos os direitos reservados</p>
         </footer>

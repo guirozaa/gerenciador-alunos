@@ -26,4 +26,13 @@ class AlunoController
         $listaAluno = $this->repo->listarAlunos();
         return $listaAluno;
     }
+
+    public function deletarAluno($id)
+    {
+        if (!isset($id)) {
+            return false;
+        }
+        $this->repo->deletarAluno($id);
+        return true;
+    }
 }
