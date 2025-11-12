@@ -93,7 +93,7 @@ class AlunoRepositorio
 
 
     //TERMINAR FUNÇÃO PEGAR ALUNO POR CPF
-    public function pegarAlunoPorCpf(string $cpf): ?AlunoModel
+    public function buscarAlunoPorCpf(string $cpf): ?AlunoModel
     {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM alunos_tb WHERE cpf = ? ");

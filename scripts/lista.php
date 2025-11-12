@@ -11,6 +11,7 @@ $alunos = $controller->ListarAlunos();
 
 $result = array_map(function (AlunoModel $aluno) {
     return [
+        'id' => $aluno->getId(),
         'nomeCompleto' => $aluno->getNomeCompleto(),
         'dataNascimento' => $aluno->getDataNascimento(),
         'idade' => $aluno->getIdade(),

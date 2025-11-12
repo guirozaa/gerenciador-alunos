@@ -15,6 +15,12 @@ class AlunoController
         $criar = $this->repo->createAluno($aluno);
     }
 
+    public function buscarAlunoCpf($cpf)
+    {
+        $aluno = $this->repo->buscarAlunoPorCpf($cpf);
+        return $aluno;
+    }
+
     public function ListarAlunos()
     {
         $listaAluno = $this->repo->listarAlunos();
