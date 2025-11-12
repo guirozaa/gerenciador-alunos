@@ -51,23 +51,7 @@ if (!isset($_SESSION['usuario'])) {
                     </a>
                 </div>
 
-                <div class="features">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3 class="feature-title">Rápido</h3>
-                        <p class="feature-description">Acesse informações instantaneamente</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3 class="feature-title">Seguro</h3>
-                        <p class="feature-description">Seus dados protegidos sempre</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h3 class="feature-title">Intuitivo</h3>
-                        <p class="feature-description">Interface simples e poderosa</p>
-                    </div>
-                </div>
+
             </div>
         </main>
         <footer>

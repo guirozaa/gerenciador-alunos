@@ -71,6 +71,7 @@ Como o projeto foi feito em **POO**, foram criadas as seguintes camadas:
 **Pequenas Modificações**
 
 - Excluir pasta do anexo específico ao excluir aluno.
+- Resolver problema dos Alertas após salvar usuário.
 
 ---
 

@@ -12,11 +12,14 @@ if (!isset($_SESSION['usuario'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Alunos</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../styles/style-primePage.css">
+    <link rel="stylesheet" href="../styles/style-list.css">
     <style>
+        /* Override de estilos específicos para a lista */
         body {
+            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 30%, #d1fae5 60%);
             padding: 2rem 0;
         }
 
@@ -173,10 +176,39 @@ if (!isset($_SESSION['usuario'])) {
         }
 
         /* Modal */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-backdrop.in {
+            opacity: 0.4;
+        }
+
+        .modal {
+            z-index: 1050;
+        }
+
+        .modal-dialog {
+            z-index: 1051;
+        }
+
         .modal-content {
             border-radius: 1.5rem;
             border: none;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .modal-header {
@@ -333,18 +365,19 @@ if (!isset($_SESSION['usuario'])) {
 </head>
 
 <body>
-    <a href="./home-page.php" class="link-back-form">
-        <button class="link-back btn btn-add">
-            <span class="btn-text">Voltar</span>
-        </button>
-    </a>
     <!-- Elementos decorativos -->
     <div class="bg-decoration bg-decoration-1"></div>
     <div class="bg-decoration bg-decoration-2"></div>
 
+
     <div class="container">
+        <a href="./home-page.php" class="link-back-form">
+            <button class="link-back btn btn-add">
+                <span class="btn-text">Voltar</span>
+            </button>
+        </a>
         <div class="page-header">
-            <h1>📚 Alunos</h1>
+            <h1>Alunos</h1>
             <p>Gerencie os alunos cadastrados no sistema</p>
         </div>
 
