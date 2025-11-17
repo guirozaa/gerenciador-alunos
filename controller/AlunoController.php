@@ -27,6 +27,11 @@ class AlunoController
         return $listaAluno;
     }
 
+    public function updateAluno(int $id, array $dados)
+    {
+        $this->repo->updateAluno($id, $dados);
+    }
+
     public function deletarAluno($id)
     {
         if (!isset($id)) {

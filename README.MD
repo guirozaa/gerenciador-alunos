@@ -59,19 +59,16 @@ Como o projeto foi feito em **POO**, foram criadas as seguintes camadas:
 ✅ Validar **login e sessão** de usuário.
 ✅ Parte de **Listar alunos**.
 ✅ Parte de **Deletar alunos**.
+✅ Edit de **Estudantes**.
 
 ---
 
 ## 🚧 O que ainda falta
 
-**Mais Importante**
-
-- [ ] Edit de estudantes
-
 **Pequenas Modificações**
 
-- Excluir pasta do anexo específico ao excluir aluno.
 - Resolver problema dos Alertas após salvar usuário.
+- criar um modal de criado com sucesso quando criar um aluno.
 
 ---
 

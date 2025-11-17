@@ -452,6 +452,89 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
         </div>
+
+        <!-- Modal de Edição de Aluno -->
+        <div class="modal fade" id="modalEditarAluno" tabindex="-1" role="dialog"
+            aria-labelledby="modalEditarAlunoLabel">
+            <div class="modal-dialog modal-lg" role="document" style="max-width: 90%; width: 1200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalEditarAlunoLabel">
+                            <i class="fa fa-edit"></i> Editar Dados do Aluno
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                        <!-- Loading -->
+                        <div id="loadingModalEditar" style="text-align: center; padding: 30px;">
+                            <i class="fa fa-spinner fa-spin fa-3x"></i>
+                            <p>Carregando dados...</p>
+                        </div>
+
+                        <!-- Formulário -->
+                        <div id="formEditarAluno" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .info-section {
+                background-color: #f9f9f9;
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                border-left: 4px solid #3c8dbc;
+            }
+
+            .info-section h5 {
+                margin-top: 0;
+                margin-bottom: 20px;
+                color: #3c8dbc;
+                font-weight: bold;
+                border-bottom: 2px solid #e0e0e0;
+                padding-bottom: 10px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                font-weight: 600;
+                color: #555;
+                margin-bottom: 5px;
+            }
+
+            .form-control {
+                border-radius: 4px;
+            }
+
+            .text-muted.small {
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
+
+            .alert {
+                margin-bottom: 20px;
+            }
+
+            #modalEditarAluno .modal-body {
+                padding: 20px 30px;
+            }
+
+            /* Estilo para inputs de arquivo */
+            input[type="file"] {
+                padding: 5px;
+            }
+
+            /* Estilo para checkboxes */
+            input[type="checkbox"] {
+                margin-right: 8px;
+            }
+        </style>
     </div>
 
     <!-- jQuery -->
@@ -495,13 +578,13 @@ if (!isset($_SESSION['usuario'])) {
                                     <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
-                            <a href="#" class="table-link">
+                            <a href="#" class="table-link btn-editar" data-cpf="${aluno.cpf}" data-id="${aluno.id}" >
                                 <span class="fa-stack">
                                     <i class="fa fa-square fa-stack-2x"></i>
                                     <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
-                            <a href="#" class="table-link btn-delete danger" data-id="${aluno.id}">
+                            <a href="#" class="table-link btn-delete danger" data-id="${aluno.id}" data-cpf="${aluno.cpf}">
                                 <span class="fa-stack">
                                     <i class="fa fa-square fa-stack-2x"></i>
                                     <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
@@ -687,12 +770,15 @@ if (!isset($_SESSION['usuario'])) {
             });
         });
 
+        // isso aqui vai fazer o modal com id modalConfirmarExclusao aparecer
         $(document).on('click', '.btn-delete', function(e) {
             e.preventDefault();
             alunoIdParaDeletar = $(this).data('id');
+            alunoCpfParaDeletar = $(this).data('cpf');
             $('#modalConfirmarExclusao').modal('show');
         });
 
+        // aqui é o botão de confirmação do modal, quando é apertado aciona essa função
         $(document).on('click', '#btnConfirmarDelete', function(e) {
             e.preventDefault();
 
@@ -702,7 +788,8 @@ if (!isset($_SESSION['usuario'])) {
                 type: "POST",
                 url: "../scripts/delete_aluno.php",
                 data: {
-                    id: alunoIdParaDeletar
+                    id: alunoIdParaDeletar,
+                    cpf: alunoCpfParaDeletar
                 },
                 dataType: "json",
                 success: function(response) {
@@ -720,6 +807,471 @@ if (!isset($_SESSION['usuario'])) {
                     alert('Erro ao excluir aluno. Tente novamente.');
                     console.error("Erro:", error);
                     console.log("Resposta:", xhr.responseText);
+                }
+            });
+        });
+
+        $(document).on('click', '.btn-editar', function(e) {
+            e.preventDefault();
+
+            var alunoCpf = $(this).data('cpf');
+            var alunoId = $(this).data('id');
+
+            $('#modalEditarAluno').modal('show');
+            $('#loadingModalEditar').show();
+            $('#formEditarAluno').hide();
+
+            // Busca os dados atuais do aluno
+            $.ajax({
+                type: "GET",
+                url: "../scripts/detalhes_aluno.php",
+                data: {
+                    cpf: alunoCpf
+                },
+                dataType: "json",
+                success: function(aluno) {
+                    $('#loadingModalEditar').hide();
+
+                    // Preenche o formulário com os dados atuais
+                    let html = `
+                <form id="formDadosAluno" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="${alunoId}">
+                    
+                    <div class="info-section">
+                        <h5>👤 Dados Pessoais</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nome Completo:</label>
+                                    <input type="text" class="form-control" name="nome_completo" value="${aluno.nomeCompleto || ''}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Data de Nascimento:</label>
+                                    <input type="date" class="form-control" name="data_nascimento" value="${aluno.dataNascimento || ''}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Idade:</label>
+                                    <input type="number" class="form-control" name="idade" value="${aluno.idade || ''}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Sexo:</label>
+                                    <select class="form-control" name="sexo" required>
+                                        <option value="M" ${aluno.sexo === 'M' ? 'selected' : ''}>Masculino</option>
+                                        <option value="F" ${aluno.sexo === 'F' ? 'selected' : ''}>Feminino</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Naturalidade:</label>
+                                    <input type="text" class="form-control" name="naturalidade" value="${aluno.naturalidade || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>UF Naturalidade:</label>
+                                    <input type="text" class="form-control" name="uf_naturalidade" value="${aluno.ufNaturalidade || ''}" maxlength="2">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nacionalidade:</label>
+                                    <input type="text" class="form-control" name="nacionalidade" value="${aluno.nacionalidade || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Cor/Raça:</label>
+                                    <input type="text" class="form-control" name="cor_raca" value="${aluno.corRaca || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>CPF:</label>
+                                    <input type="text" class="form-control" name="cpf" value="${aluno.cpf || ''}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>RG:</label>
+                                    <input type="text" class="form-control" name="rg" value="${aluno.rg || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Órgão Emissor:</label>
+                                    <input type="text" class="form-control" name="orgao_emissor" value="${aluno.orgaoEmissor || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>NIS:</label>
+                                    <input type="text" class="form-control" name="nis" value="${aluno.nis || ''}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>📍 Endereço</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Endereço:</label>
+                                    <input type="text" class="form-control" name="endereco" value="${aluno.endereco || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Bairro:</label>
+                                    <input type="text" class="form-control" name="bairro" value="${aluno.bairro || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>CEP:</label>
+                                    <input type="text" class="form-control" name="cep" value="${aluno.cep || ''}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Município:</label>
+                                    <input type="text" class="form-control" name="municipio" value="${aluno.municipio || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>UF:</label>
+                                    <input type="text" class="form-control" name="uf_endereco" value="${aluno.ufEndereco || ''}" maxlength="2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>📞 Contato</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Telefone:</label>
+                                    <input type="text" class="form-control" name="telefone" value="${aluno.telefone || ''}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>E-mail:</label>
+                                    <input type="email" class="form-control" name="email" value="${aluno.email || ''}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>🎓 Dados Acadêmicos</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Ano Letivo:</label>
+                                    <input type="text" class="form-control" name="ano_letivo" value="${aluno.anoLetivo || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Turma:</label>
+                                    <input type="text" class="form-control" name="turma" value="${aluno.turma || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Turno:</label>
+                                    <input type="text" class="form-control" name="turno" value="${aluno.turno || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Modalidade:</label>
+                                    <input type="text" class="form-control" name="modalidade" value="${aluno.modalidade || ''}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Escola de Origem:</label>
+                                    <input type="text" class="form-control" name="escola_origem" value="${aluno.escolaOrigem || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Município Escola:</label>
+                                    <input type="text" class="form-control" name="municipio_escola" value="${aluno.municipioEscola || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Data Matrícula:</label>
+                                    <input type="date" class="form-control" name="data_matricula" value="${aluno.dataMatricula || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Número Chamada:</label>
+                                    <input type="text" class="form-control" name="numero_chamada" value="${aluno.numeroChamada || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Servidor Responsável:</label>
+                                    <input type="text" class="form-control" name="servidor_responsavel" value="${aluno.servidorResponsavel || ''}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>👨‍👩‍👧 Responsável</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nome:</label>
+                                    <input type="text" class="form-control" name="responsavel_nome" value="${aluno.responsavelNome || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Grau Parentesco:</label>
+                                    <input type="text" class="form-control" name="responsavel_grau_parentesco" value="${aluno.responsavelGrauParentesco || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>CPF:</label>
+                                    <input type="text" class="form-control" name="responsavel_cpf" value="${aluno.responsavelCpf || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>RG:</label>
+                                    <input type="text" class="form-control" name="responsavel_rg" value="${aluno.responsavelRg || ''}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Endereço:</label>
+                                    <input type="text" class="form-control" name="responsavel_endereco" value="${aluno.responsavelEndereco || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefone:</label>
+                                    <input type="text" class="form-control" name="responsavel_telefone" value="${aluno.responsavelTelefone || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail:</label>
+                                    <input type="email" class="form-control" name="responsavel_email" value="${aluno.responsavelEmail || ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Profissão:</label>
+                                    <input type="text" class="form-control" name="responsavel_profissao" value="${aluno.responsavelProfissao || ''}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>🏥 Saúde</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Necessidade Específica:</label>
+                                    <textarea class="form-control" name="necessidade_especifica" rows="2">${aluno.necessidadeEspecifica || ''}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Benefício Social:</label>
+                                    <input type="text" class="form-control" name="beneficio_social" value="${aluno.beneficioSocial || ''}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Medicação Contínua:</label>
+                                    <textarea class="form-control" name="medicacao_continua" rows="2">${aluno.medicacaoContinua || ''}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Alergias:</label>
+                                    <textarea class="form-control" name="alergias" rows="2">${aluno.alergias || ''}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>🚨 Contato de Emergência</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nome:</label>
+                                    <input type="text" class="form-control" name="contato_emergencia" value="${aluno.contatoEmergencia || ''}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Telefone:</label>
+                                    <input type="text" class="form-control" name="telefone_emergencia" value="${aluno.telefoneEmergencia || ''}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>✅ Autorizações</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="autorizacao_atividades" value="1" ${aluno.autorizacaoAtividades ? 'checked' : ''}>
+                                        Autorização para Atividades
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="autorizacao_uso_imagem" value="1" ${aluno.autorizacaoUsoImagem ? 'checked' : ''}>
+                                        Autorização de Uso de Imagem
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>📄 Documentos</h5>
+                        <p class="text-muted">Envie novos arquivos apenas se desejar substituir os existentes</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Foto do Aluno:</label>
+                                    ${aluno.fotoAluno ? `<div class="text-muted small">Arquivo atual: <a href="${aluno.fotoAluno}" target="_blank">Ver arquivo</a></div>` : ''}
+                                    <input type="file" class="form-control" name="foto_aluno" accept="image/*">
+                                </div>
+                                <div class="form-group">
+                                    <label>Certidão de Nascimento:</label>
+                                    ${aluno.certidaoNascimento ? `<div class="text-muted small">Arquivo atual: <a href="${aluno.certidaoNascimento}" target="_blank">Ver arquivo</a></div>` : ''}
+                                    <input type="file" class="form-control" name="certidao_nascimento" accept=".pdf,image/*">
+                                </div>
+                                <div class="form-group">
+                                    <label>Carteira de Vacinação:</label>
+                                    ${aluno.carteiraVacinacao ? `<div class="text-muted small">Arquivo atual: <a href="${aluno.carteiraVacinacao}" target="_blank">Ver arquivo</a></div>` : ''}
+                                    <input type="file" class="form-control" name="carteira_vacinacao" accept=".pdf,image/*">
+                                </div>
+                                <div class="form-group">
+                                    <label>Comprovante de Residência:</label>
+                                    ${aluno.comprovanteResidencia ? `<div class="text-muted small">Arquivo atual: <a href="${aluno.comprovanteResidencia}" target="_blank">Ver arquivo</a></div>` : ''}
+                                    <input type="file" class="form-control" name="comprovante_residencia" accept=".pdf,image/*">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Cartão NIS:</label>
+                                    ${aluno.cartaoNis ? `<div class="text-muted small">Arquivo atual: <a href="${aluno.cartaoNis}" target="_blank">Ver arquivo</a></div>` : ''}
+                                    <input type="file" class="form-control" name="cartao_nis" accept=".pdf,image/*">
+                                </div>
+                                <div class="form-group">
+                                    <label>Documento do Aluno:</label>
+                                    ${aluno.documentoAluno ? `<div class="text-muted small">Arquivo atual: <a href="${aluno.documentoAluno}" target="_blank">Ver arquivo</a></div>` : ''}
+                                    <input type="file" class="form-control" name="documento_aluno" accept=".pdf,image/*">
+                                </div>
+                                <div class="form-group">
+                                    <label>Documento do Responsável:</label>
+                                    ${aluno.documentoResponsavel ? `<div class="text-muted small">Arquivo atual: <a href="${aluno.documentoResponsavel}" target="_blank">Ver arquivo</a></div>` : ''}
+                                    <input type="file" class="form-control" name="documento_responsavel" accept=".pdf,image/*">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-save"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </form>
+            `;
+
+                    $('#formEditarAluno').html(html).show();
+                },
+                error: function(xhr, status, error) {
+                    $('#loadingModalEditar').hide();
+
+                    console.error("Erro completo:", xhr.responseText);
+
+                    let mensagemErro = 'Erro ao carregar os dados do aluno.';
+
+                    // Tenta fazer parse do JSON se possível
+                    try {
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.erro) {
+                            mensagemErro = response.erro;
+                        }
+                    } catch (e) {
+                        // Se não for JSON, mostra erro genérico
+                        console.error("Resposta não é JSON:", xhr.responseText);
+                    }
+
+                    $('#formEditarAluno').html(
+                        `<div class="alert alert-danger">
+                    <i class="fa fa-exclamation-triangle"></i> ${mensagemErro}
+                </div>`
+                    ).show();
+                }
+            });
+        });
+
+        // Submissão do formulário de edição
+        $(document).on('submit', '#formDadosAluno', function(e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            // Mostra loading
+            $('#formEditarAluno').prepend(
+                '<div id="loadingSave" class="alert alert-info"><i class="fa fa-spinner fa-spin"></i> Salvando alterações...</div>'
+            );
+
+            // Desabilita o botão de submit
+            $('#formDadosAluno button[type="submit"]').prop('disabled', true);
+
+            $.ajax({
+                type: "POST",
+                url: "../scripts/update_aluno.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('#loadingSave').remove();
+
+                    // Verifica se a resposta é string e tenta fazer parse
+                    if (typeof response === 'string') {
+                        try {
+                            response = JSON.parse(response);
+                        } catch (e) {
+                            console.error("Erro ao fazer parse da resposta:", response);
+                            $('#formEditarAluno').prepend(
+                                '<div class="alert alert-danger alert-dismissible">' +
+                                '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                                '<i class="fa fa-exclamation-triangle"></i> Erro: Resposta inválida do servidor' +
+                                '</div>'
+                            );
+                            $('#formDadosAluno button[type="submit"]').prop('disabled', false);
+                            return;
+                        }
+                    }
+
+                    // Mostra mensagem de sucesso
+                    $('#formEditarAluno').prepend(
+                        '<div class="alert alert-success alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        '<i class="fa fa-check"></i> ' + (response.mensagem ||
+                            'Aluno atualizado com sucesso!') +
+                        '</div>'
+                    );
+
+                    // Fecha o modal após 2 segundos e recarrega a página
+                    setTimeout(function() {
+                        $('#modalEditarAluno').modal('hide');
+                        location.reload();
+                    }, 2000);
+                },
+                error: function(xhr, status, error) {
+                    $('#loadingSave').remove();
+                    $('#formDadosAluno button[type="submit"]').prop('disabled', false);
+
+                    console.error("Erro completo:", xhr.responseText);
+                    console.error("Status:", status);
+                    console.error("Error:", error);
+
+                    let mensagemErro = 'Erro ao atualizar os dados do aluno.';
+
+                    // Tenta extrair mensagem de erro do JSON
+                    try {
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.erro) {
+                            mensagemErro = response.erro;
+                        }
+                        if (response.detalhes) {
+                            mensagemErro += ' Detalhes: ' + response.detalhes;
+                        }
+                    } catch (e) {
+                        // Se não for JSON válido, mostra o conteúdo
+                        console.error("Resposta não é JSON válido:", xhr.responseText);
+                        if (xhr.responseText) {
+                            mensagemErro += ' (Verifique o console para mais detalhes)';
+                        }
+                    }
+
+                    $('#formEditarAluno').prepend(
+                        '<div class="alert alert-danger alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        '<i class="fa fa-exclamation-triangle"></i> ' + mensagemErro +
+                        '</div>'
+                    );
                 }
             });
         });
