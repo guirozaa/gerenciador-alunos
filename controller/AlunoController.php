@@ -1,5 +1,6 @@
 <?php
 require "../model/AlunoModel.php";
+require "../sgc/verifica.php";
 class AlunoController
 {
     private AlunoRepositorio $repo;

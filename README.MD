@@ -69,6 +69,8 @@ Como o projeto foi feito em **POO**, foram criadas as seguintes camadas:
 
 - Resolver problema dos Alertas após salvar usuário.
 - criar um modal de criado com sucesso quando criar um aluno.
+- Caso a sessão exista, ja envia para página principal diretamente.
+- Mudar o jeito que a verificação de autênticação está sendo feita, tem que ser com require ou include.
 
 ---
 

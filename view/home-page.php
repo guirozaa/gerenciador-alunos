@@ -1,9 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario'])) {
-    header("Location: ../index.html");
-    die;
-}
+require "../sgc/verifica.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

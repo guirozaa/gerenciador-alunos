@@ -2,6 +2,7 @@
 require_once '../sgc/conectaBd.php';
 require_once '../repositorio/AlunoRepositorio.php';
 require_once '../controller/AlunoController.php';
+require "../sgc/verifica.php";
 
 $repo = new AlunoRepositorio($conect);
 $controller = new AlunoController($repo);

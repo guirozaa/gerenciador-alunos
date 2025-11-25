@@ -1,9 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario'])) {
-    header("Location: ../index.html");
-    die;
-}
+require "../sgc/verifica.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -381,6 +377,11 @@ if (!isset($_SESSION['usuario'])) {
             <p>Gerencie os alunos cadastrados no sistema</p>
         </div>
 
+        <div>
+            <button onclick="window.location.href='../scripts/exportar_csv.php'">
+                Exportar para CSV
+            </button>
+        </div>
         <div class="table-card">
             <div class="table-responsive">
                 <table class="table user-list table-hover">

@@ -1,9 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario'])) {
-    header("Location: ../index.html");
-    die;
-}
+require "../sgc/verifica.php";
 require_once '../sgc/conectaBd.php';
 require_once '../repositorio/AlunoRepositorio.php';
 require_once '../controller/AlunoController.php';

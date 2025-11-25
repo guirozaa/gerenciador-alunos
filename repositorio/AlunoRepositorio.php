@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL & ~E_NOTICE);
-
+require "../sgc/verifica.php";
 require_once __DIR__ . '/../sgc/conectaBd.php';
 
 class AlunoRepositorio

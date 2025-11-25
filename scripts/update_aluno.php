@@ -1,4 +1,5 @@
 <?php
+require "../sgc/verifica.php";
 // Inicia o buffer de saída para capturar erros
 ob_start();
 
@@ -20,7 +21,6 @@ try {
     $repo = new AlunoRepositorio($conect);
     $controller = new AlunoController($repo);
 
-    // Verifica se o ID foi enviado
     if (!isset($_POST['id']) || empty($_POST['id'])) {
         http_response_code(400);
         echo json_encode(['erro' => 'ID do aluno não fornecido']);
@@ -29,7 +29,6 @@ try {
 
     $id = $_POST['id'];
 
-    // Campos esperados do formulário
     $camposEsperados = [
         'nome_completo',
         'data_nascimento',
@@ -75,10 +74,8 @@ try {
         'servidor_responsavel'
     ];
 
-    // Campos de checkbox (autorizações)
     $camposCheckbox = ['autorizacao_atividades', 'autorizacao_uso_imagem'];
 
-    // Campos de arquivos
     $camposArquivos = [
         'foto_aluno',
         'certidao_nascimento',
@@ -91,36 +88,29 @@ try {
 
     $dados = [];
 
-    // Processa campos de texto
     foreach ($camposEsperados as $campo) {
         if (isset($_POST[$campo]) && $_POST[$campo] !== '') {
             $dados[$campo] = trim($_POST[$campo]);
         }
     }
 
-    // Processa checkboxes (converte para 1 ou 0)
     foreach ($camposCheckbox as $campo) {
         $dados[$campo] = isset($_POST[$campo]) && $_POST[$campo] == '1' ? 1 : 0;
     }
 
-    // Processa arquivos enviados
     if (!empty($_FILES)) {
         foreach ($camposArquivos as $campo) {
             if (isset($_FILES[$campo]) && $_FILES[$campo]['error'] === UPLOAD_ERR_OK) {
-                // Diretório de upload
                 $diretorioUpload = '../uploads/alunos/';
 
-                // Cria o diretório se não existir
                 if (!is_dir($diretorioUpload)) {
                     mkdir($diretorioUpload, 0755, true);
                 }
 
-                // Informações do arquivo
                 $nomeArquivo = $_FILES[$campo]['name'];
                 $tmpName = $_FILES[$campo]['tmp_name'];
                 $extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
 
-                // Gera nome único para o arquivo
                 $nomeUnico = $id . '_' . $campo . '_' . time() . '.' . $extensao;
                 $caminhoCompleto = $diretorioUpload . $nomeUnico;
 
